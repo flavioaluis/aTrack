@@ -25,8 +25,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore } from '@/store';
-import { ADICIONA_PROJETO, ALTERA_PROJETO } from '@/store/tipo-mutacoes';
-
+import { ADICIONA_PROJETO, ALTERA_PROJETO} from '@/store/tipo-mutacoes';
+import { TypeNotes } from '@/interfaces/INotes';
+import  useInformer  from '@/hooks/informer';
   export default defineComponent({
   name: 'Formulario',  
   props: {
@@ -57,13 +58,16 @@ import { ADICIONA_PROJETO, ALTERA_PROJETO } from '@/store/tipo-mutacoes';
       }
       
       this.nomeDoProjeto = "";
+      this.inform(TypeNotes.SUCCESS, 'Excelente!', 'O projeto foi cadastrado com sucesso!')
       this.$router.push('/projetos')
-    },
+    }
   },
   setup() {
     const store = useStore()
+    const { inform } = useInformer()
     return {
-      store
+      store,
+      inform
     }
   }
 });
